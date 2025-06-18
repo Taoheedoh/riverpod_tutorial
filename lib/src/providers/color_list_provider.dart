@@ -1,0 +1,24 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_tutorial/src/models/color_result.dart';
+import 'package:riverpod_tutorial/src/services/api_services.dart';
+
+class ColorList extends Notifier<List<ColorResult>> {
+  @override
+  List<ColorResult> build() {
+    _load();
+    return [];
+  }
+
+  Future<void> _load() async {
+    final results = await ApiServices().listTopColors();
+    state = results;
+  }
+
+  Future<void> refresh() async {
+    state = [];
+  }
+}
+
+final colorListProvider = NotifierProvider<ColorList, List<ColorResult>>(
+  ColorList.new,
+);
