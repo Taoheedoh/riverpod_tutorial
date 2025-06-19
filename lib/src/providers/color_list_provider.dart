@@ -17,6 +17,15 @@ class ColorList extends Notifier<List<ColorResult>> {
   Future<void> refresh() async {
     state = [];
   }
+
+  void like(int id, bool value) {
+    final index = state.indexWhere((color) => color.id == id);
+    if (index >= 0) {
+      state = [...state]
+        ..removeAt(index)
+        ..insert(index, state[index].like(value));
+    }
+  }
 }
 
 final colorListProvider = NotifierProvider<ColorList, List<ColorResult>>(

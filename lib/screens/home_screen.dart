@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_tutorial/src/providers/color_list_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,9 +14,34 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.blueAccent,
       ),
 
-      body: Builder(
-        builder: (context) {
-          return Text("");
+      body: Consumer(
+        builder: (context, ref, _) {
+          final provider = ref.read(colorListProvider.notifier);
+          final colors = ref.watch(colorListProvider);
+          if (colors.isEmpty) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          return RefreshIndicator(
+            onRefresh: () => provider.refresh(),
+            child: ListView.builder(
+              itemCount: colors.length,
+              itemBuilder: (context, index) {
+                final color = colors[index];
+
+                return Card(
+                  child: ListTile(
+                    leading: Container(
+                      color: color.color,
+                      width: 32.0,
+                      height: 32.0,
+                    ),
+                    title: Text(color.title),
+                  ),
+                );
+              },
+            ),
+          );
         },
       ),
     );
