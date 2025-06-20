@@ -38,7 +38,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                     title: Text(color.title),
                     trailing: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        provider.like(color.id, !color.isLiked);
+                      },
                       icon: Icon(
                         color.isLiked ? Icons.favorite : Icons.favorite_border,
                       ),
