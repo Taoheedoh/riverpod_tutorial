@@ -37,6 +37,12 @@ class HomeScreen extends StatelessWidget {
                       height: 32.0,
                     ),
                     title: Text(color.title),
+                    trailing: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        color.isLiked ? Icons.favorite : Icons.favorite_border,
+                      ),
+                    ),
                   ),
                 );
               },
