@@ -1,8 +1,11 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_tutorial/src/models/color_result.dart';
 import 'package:riverpod_tutorial/src/services/api_services.dart';
 
-class ColorList extends Notifier<List<ColorResult>> {
+part 'color_list_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class ColorList extends _$ColorList {
   @override
   List<ColorResult> build() {
     _load();
@@ -27,7 +30,3 @@ class ColorList extends Notifier<List<ColorResult>> {
     }
   }
 }
-
-final colorListProvider = NotifierProvider<ColorList, List<ColorResult>>(
-  ColorList.new,
-);

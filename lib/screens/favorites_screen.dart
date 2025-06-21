@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_tutorial/screens/detail_screen.dart';
-import 'package:riverpod_tutorial/screens/favorites_screen.dart';
 import 'package:riverpod_tutorial/src/providers/color_list_provider.dart';
+import 'package:riverpod_tutorial/src/providers/favourite_colors_provider.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Riverpod Tutorial', style: TextStyle(color: Colors.white)),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (_) => FavoritesScreen()));
-            },
-            icon: Icon(Icons.favorite_border),
-          ),
-        ],
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
@@ -29,9 +19,9 @@ class HomeScreen extends StatelessWidget {
       body: Consumer(
         builder: (context, ref, _) {
           final provider = ref.read(colorListProvider.notifier);
-          final colors = ref.watch(colorListProvider);
+          final colors = ref.watch(favoriteColorsProvider);
           if (colors.isEmpty) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: Text("No Favorites"),);
           }
 
           return RefreshIndicator(

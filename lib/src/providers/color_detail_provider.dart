@@ -1,7 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_tutorial/src/models/color_result.dart';
 import 'package:riverpod_tutorial/src/services/api_services.dart';
 
-final colorDetailProvider = FutureProvider<ColorResult?>((ref) async {
-  return await ApiServices().retrieve("#000000");
-});
+part 'color_detail_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+// ignore: deprecated_member_use_from_same_package, functional_ref
+Future<ColorResult?> colorDetail(ColorDetailRef ref, String hexcode) async {
+  return await ApiServices().retrieve(hexcode);
+}

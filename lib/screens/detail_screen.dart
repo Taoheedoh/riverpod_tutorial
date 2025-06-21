@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_tutorial/src/providers/color_detail_provider.dart';
 
 class DetailScreen extends ConsumerWidget {
-  const DetailScreen({super.key});
+  final String hexcode;
+  const DetailScreen({super.key, required this.hexcode});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final result = ref.watch(colorDetailProvider);
+    final result = ref.watch(colorDetailProvider(hexcode));
 
     return Scaffold(
       appBar: AppBar(),
